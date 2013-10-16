@@ -4,9 +4,7 @@
  * license that can be found in the LICENSE file.
  */
 
-// If WeakMap is not available, the association is stored as an expando property on the "key".
-// TODO(arv): WeakMap does not allow for Node etc to be keys in Firefox
-if (typeof WeakMap === 'undefined' || navigator.userAgent.indexOf('Firefox/') > -1) {
+if (typeof WeakMap === 'undefined') {
   (function() {
     var defineProperty = Object.defineProperty;
     var counter = Date.now() % 1e9;
