@@ -19,7 +19,7 @@ if (typeof WeakMap === 'undefined') {
         if (entry && entry[0] === key)
           entry[1] = value;
         else
-          defineProperty(key, this.name, {value: [key, value], writable: true});
+          defineProperty(key, this.name, {value: [key, value], writable: true, configurable: true});
       },
       get: function(key) {
         var entry;
@@ -27,7 +27,13 @@ if (typeof WeakMap === 'undefined') {
             entry[1] : undefined;
       },
       delete: function(key) {
-        this.set(key, undefined);
+        var has = this.has(key);
+        has && delete key[this.name];
+        return has;
+      },
+      has: function(key) {
+        var entry = key[this.name];
+        return !!(entry && entry[0] === key);
       }
     };
 

@@ -27,12 +27,14 @@ license that can be found in the LICENSE file.
 
     var expect = chai.expect;
 
-    test('WeakMap has get and set functions', function() {
+    test('WeakMap has get, set, delete, and has properties', function() {
       expect(WeakMap.prototype).to.have.property('get');
       expect(WeakMap.prototype).to.have.property('set');
+      expect(WeakMap.prototype).to.have.property('delete');
+      expect(WeakMap.prototype).to.have.property('has');
     });
 
-    test('WeakMap\'s get and set perform as expected', function() {
+    test('WeakMap\'s methods perform as expected', function() {
       var wm = new WeakMap();
 
       var o1 = {};
@@ -51,6 +53,16 @@ license that can be found in the LICENSE file.
       expect(wm.get(o1)).to.equal(o2);
       expect(wm.get({})).to.equal(undefined); // undefined, because there is no value for the object on wm
       expect(wm.get(o3)).to.equal(undefined); // undefined, because that is the set value
+
+      expect(wm.has(o1)).to.equal(true);
+      expect(wm.has({})).to.equal(false);
+
+      wm.delete(o1);
+      expect(wm.get(o1)).to.equal(undefined);
+      expect(wm.has(o1)).to.equal(false);
+      // Ensure that delete returns true/false indicating if the value was removed
+      expect(wm.delete(o2)).to.equal(true);
+      expect(wm.delete({})).to.equal(false);
     });
   });
 </script>
