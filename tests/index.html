@@ -32,7 +32,7 @@ license that can be found in the LICENSE file.
       expect(WeakMap.prototype).to.have.property('set');
     });
 
-    test('WeakMap performs functional requirements', function() {
+    test('WeakMap\'s get and set perform as expected', function() {
       var wm = new WeakMap();
 
       var o1 = {};
@@ -41,7 +41,7 @@ license that can be found in the LICENSE file.
 
       wm.set(o1, 37);
       wm.set(o2, 'aoeui');
-      
+
       expect(wm.get(o1)).to.equal(37);
       expect(wm.get(o2)).to.equal('aoeui');
 
