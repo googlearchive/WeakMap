@@ -4,14 +4,14 @@ Copyright 2013 The Polymer Authors. All rights reserved.
 Use of this source code is governed by a BSD-style
 license that can be found in the LICENSE file.
 -->
-<title>PointerEvent tests</title>
+<title>WeakMap tests</title>
 <meta charset="UTF8">
 <!-- Mocha -->
 <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
 <script src="../node_modules/mocha/mocha.js"></script>
 <!-- Chai -->
 <script src="../node_modules/chai/chai.js"></script>
-<!-- PointerEvents -->
+<!-- WeakMap -->
 <script src="../weakmap.js"></script>
 <!-- Test Setup -->
 <div id="mocha"></div>
@@ -22,6 +22,38 @@ license that can be found in the LICENSE file.
   });
 </script>
 <!-- Tests -->
+<script>
+  suite('WeakMap', function() {
+
+    var expect = chai.expect;
+
+    test('WeakMap has get and set functions', function() {
+      expect(WeakMap.prototype).to.have.property('get');
+      expect(WeakMap.prototype).to.have.property('set');
+    });
+
+    test('WeakMap performs functional requirements', function() {
+      var wm = new WeakMap();
+
+      var o1 = {};
+      var o2 = function(){};
+      var o3 = window;
+
+      wm.set(o1, 37);
+      wm.set(o2, 'aoeui');
+      
+      expect(wm.get(o1)).to.equal(37);
+      expect(wm.get(o2)).to.equal('aoeui');
+
+      wm.set(o1, o2);
+      wm.set(o3, undefined);
+
+      expect(wm.get(o1)).to.equal(o2);
+      expect(wm.get({})).to.equal(undefined); // undefined, because there is no value for the object on wm
+      expect(wm.get(o3)).to.equal(undefined); // undefined, because that is the set value
+    });
+  });
+</script>
 <!-- Run Mocha -->
 <script>
   mocha.run();
