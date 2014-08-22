@@ -1,6 +1,6 @@
 {
   "name": "WeakMap",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Shim of the ES6 WeakMap",
   "main": "Gruntfile.js",
   "directories": {
